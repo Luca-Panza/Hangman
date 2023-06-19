@@ -6,17 +6,16 @@ import forca4 from "./assets/forca4.png";
 import forca5 from "./assets/forca5.png";
 import forca6 from "./assets/forca6.png";
 
-import "./css/reset.css";
-import "./css/style.css";
-
 import Jogo from "./Jogo";
 import Letras from "./Letras";
 
 import React from "react";
+import GlobalStyle from "./globalStyles";
 
 export default function App() {
   const [word, setWord] = React.useState("");
   const [guess, setGuess] = React.useState("");
+  const [word_guess, setWord_guess] = React.useState("");
   const [errors, setErrors] = React.useState(0);
   const [letters, setLetters] = React.useState([]);
   const [startgame, setStartgame] = React.useState(false);
@@ -26,6 +25,7 @@ export default function App() {
 
   return (
     <>
+      <GlobalStyle />
       <Jogo
         word={word}
         setWord={setWord}
@@ -42,6 +42,7 @@ export default function App() {
         setEndgame={setEndgame}
         stats={stats}
         setStats={setStats}
+        setWord_guess={setWord_guess}
       />
       <Letras
         word={word}
@@ -59,6 +60,8 @@ export default function App() {
         setEndgame={setEndgame}
         stats={stats}
         setStats={setStats}
+        word_guess={word_guess}
+        setWord_guess={setWord_guess}
       />
     </>
   );

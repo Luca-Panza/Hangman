@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 html,
 body,
 div,
@@ -86,6 +89,9 @@ video {
   font-size: 100%;
   vertical-align: baseline;
 }
+  * {
+  box-sizing: border-box;
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -102,6 +108,7 @@ section {
 }
 body {
   line-height: 1;
+  background-color: rgb(23, 24, 28);
 }
 ol,
 ul {
@@ -125,3 +132,6 @@ table {
 strong {
   font-weight: bold;
 }
+`;
+
+export default GlobalStyle;
