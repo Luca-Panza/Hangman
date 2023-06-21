@@ -18,10 +18,19 @@ export default function Letras(props) {
   } = props;
 
   function verify_click(guess) {
-    if (word.includes(guess)) {
+    if (
+      word
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .includes(guess)
+    ) {
       setLetters([...letters, guess]);
       if (
-        word.split("").every((element) => [...letters, guess].includes(element))
+        word
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .split("")
+          .every((element) => [...letters, guess].includes(element))
       ) {
         setEndgame(true);
         setStats("letters_green");
@@ -37,7 +46,16 @@ export default function Letras(props) {
   }
 
   function verify_input() {
-    if (word_guess === word) {
+    if (
+      word_guess
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") ===
+      word
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+    ) {
       setEndgame(true);
       setStats("letters_green");
     } else {
@@ -64,10 +82,10 @@ export default function Letras(props) {
         <input
           placeholder="Palavra"
           value={word_guess}
-          disabled={endgame}
+          disabled={!startgame || endgame}
           onChange={(e) => setWord_guess(e.target.value)}
         />
-        <button onClick={verify_input} disabled={endgame}>
+        <button onClick={verify_input} disabled={!startgame || endgame}>
           Chutar!
         </button>
       </InputSC>
@@ -93,7 +111,7 @@ const InputSC = styled.div`
     width: 353px;
     height: 40px;
 
-    background: #ffffff;
+    background: #e1ecf4;
     border: 1px solid #cccccc;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
     border-radius: 3px;
@@ -119,6 +137,7 @@ const InputSC = styled.div`
     justify-content: center;
     text-align: center;
 
+    background-color: #e1ecf4;
     color: #3c76a1;
   }
 `;

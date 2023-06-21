@@ -29,6 +29,22 @@ export default function Jogo(props) {
     setWord_guess("");
   }
 
+  function letters_answer() {
+    return word.split("").map((letra, i) => {
+      const letraoriginal = letra;
+      letra = letra.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return (
+        <div data-test="word" key={i}>
+          {letters.includes(letra) ||
+          stats === "letters_red" ||
+          stats === "letters_green"
+            ? letraoriginal.toUpperCase()
+            : "_"}
+        </div>
+      );
+    });
+  }
+
   return (
     <JogoContainer>
       <div>
@@ -38,17 +54,7 @@ export default function Jogo(props) {
         <button data-test="choose-word" onClick={start}>
           Escolher Palavra
         </button>
-        <LettersBox stats={stats}>
-          {word.split("").map((letra, i) => (
-            <div data-test="word" key={i}>
-              {letters.includes(letra) ||
-              stats === "letters_red" ||
-              stats === "letters_green"
-                ? letra.toUpperCase()
-                : "_"}
-            </div>
-          ))}
-        </LettersBox>
+        <LettersBox stats={stats}>{letters_answer()}</LettersBox>
       </Written>
     </JogoContainer>
   );
