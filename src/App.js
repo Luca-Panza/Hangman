@@ -1,32 +1,34 @@
-import forca0 from "./assets/forca0.png";
-import forca1 from "./assets/forca1.png";
-import forca2 from "./assets/forca2.png";
-import forca3 from "./assets/forca3.png";
-import forca4 from "./assets/forca4.png";
-import forca5 from "./assets/forca5.png";
-import forca6 from "./assets/forca6.png";
-
-import Jogo from "./Jogo";
-import Letras from "./Letras";
-
 import React from "react";
-import GlobalStyle from "./globalStyles";
+import { useState } from "react";
+
+import GlobalStyle from "./styles/globalStyles";
+
+import image0 from "./assets/image0.png";
+import image1 from "./assets/image1.png";
+import image2 from "./assets/image2.png";
+import image3 from "./assets/image3.png";
+import image4 from "./assets/image4.png";
+import image5 from "./assets/image5.png";
+import image6 from "./assets/image6.png";
+
+import Game from "./components/GameContainer";
+import Keyboard from "./components/KeyboardContainer";
 
 export default function App() {
-  const [word, setWord] = React.useState("");
-  const [guess, setGuess] = React.useState("");
-  const [word_guess, setWord_guess] = React.useState("");
-  const [errors, setErrors] = React.useState(0);
-  const [letters, setLetters] = React.useState([]);
-  const [startgame, setStartgame] = React.useState(false);
-  const [endgame, setEndgame] = React.useState(false);
-  const [stats, setStats] = React.useState("letters");
-  const images = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
+  const [word, setWord] = useState("");
+  const [guess, setGuess] = useState("");
+  const [wordGuess, setWordGuess] = useState("");
+  const [errors, setErrors] = useState(0);
+  const [letters, setLetters] = useState([]);
+  const [startGame, setStartGame] = useState(false);
+  const [endGame, setEndGame] = useState(false);
+  const [stats, setStats] = useState("letters");
+  const images = [image0, image1, image2, image3, image4, image5, image6];
 
   return (
     <>
       <GlobalStyle />
-      <Jogo
+      <Game
         word={word}
         setWord={setWord}
         letters={letters}
@@ -36,15 +38,15 @@ export default function App() {
         guess={guess}
         setGuess={setGuess}
         images={images}
-        startgame={startgame}
-        setStartgame={setStartgame}
-        endgame={endgame}
-        setEndgame={setEndgame}
+        startGame={startGame}
+        setStartGame={setStartGame}
+        endGame={endGame}
+        setEndGame={setEndGame}
         stats={stats}
         setStats={setStats}
-        setWord_guess={setWord_guess}
+        setWordGuess={setWordGuess}
       />
-      <Letras
+      <Keyboard
         word={word}
         setWord={setWord}
         letters={letters}
@@ -54,14 +56,14 @@ export default function App() {
         guess={guess}
         setGuess={setGuess}
         images={images}
-        startgame={startgame}
-        setStartgame={setStartgame}
-        endgame={endgame}
-        setEndgame={setEndgame}
+        startGame={startGame}
+        setStartGame={setStartGame}
+        endGame={endGame}
+        setEndGame={setEndGame}
         stats={stats}
         setStats={setStats}
-        word_guess={word_guess}
-        setWord_guess={setWord_guess}
+        wordGuess={wordGuess}
+        setWordGuess={setWordGuess}
       />
     </>
   );

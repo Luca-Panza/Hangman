@@ -1,21 +1,9 @@
 import styled from "styled-components";
 
-import alfabeto from "./alfabeto";
+import alphabet from "../constants/alphabet";
 
-export default function Letras(props) {
-  const {
-    word,
-    letters,
-    setLetters,
-    errors,
-    setErrors,
-    startgame,
-    endgame,
-    setEndgame,
-    setStats,
-    word_guess,
-    setWord_guess,
-  } = props;
+export default function Keyboard(props) {
+  const { word, letters, setLetters, errors, setErrors, startGame, endGame, setEndGame, setStats, wordGuess, setWordGuess } = props;
 
   function verify_click(guess) {
     if (
@@ -32,14 +20,14 @@ export default function Letras(props) {
           .split("")
           .every((element) => [...letters, guess].includes(element))
       ) {
-        setEndgame(true);
+        setEndGame(true);
         setStats("letters_green");
       }
     } else {
       setErrors(errors + 1);
       setLetters([...letters, guess]);
       if (errors === 5) {
-        setEndgame(true);
+        setEndGame(true);
         setStats("letters_red");
       }
     }
@@ -47,7 +35,7 @@ export default function Letras(props) {
 
   function verify_input() {
     if (
-      word_guess
+      wordGuess
         .toUpperCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "") ===
@@ -56,44 +44,39 @@ export default function Letras(props) {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
     ) {
-      setEndgame(true);
+      setEndGame(true);
       setStats("letters_green");
     } else {
-      setEndgame(true);
+      setEndGame(true);
       setStats("letters_red");
     }
   }
 
   return (
-    <ContainerSC>
-      <LettersbuttonSC>
-        {alfabeto.map((letra) => (
+    <KeyboardContainerSC>
+      <LettersButtonSC>
+        {alphabet.map((letra) => (
           <ButtonSC
-            data-test="letter"
-            unlocked={!startgame || endgame || letters.includes(letra)}
+            unlocked={!startGame || endGame || letters.includes(letra)}
             onClick={() => verify_click(letra)}
-            disabled={!startgame || endgame || letters.includes(letra)}
-            key={letra}>
+            disabled={!startGame || endGame || letters.includes(letra)}
+            key={letra}
+          >
             {letra.toUpperCase()}
           </ButtonSC>
         ))}
-      </LettersbuttonSC>
+      </LettersButtonSC>
       <InputSC>
-        <input
-          placeholder="Palavra"
-          value={word_guess}
-          disabled={!startgame || endgame}
-          onChange={(e) => setWord_guess(e.target.value)}
-        />
-        <button onClick={verify_input} disabled={!startgame || endgame}>
-          Chutar!
+        <input placeholder="Word" value={wordGuess} disabled={!startGame || endGame} onChange={(e) => setWordGuess(e.target.value)} />
+        <button onClick={verify_input} disabled={!startGame || endGame}>
+          Ok!
         </button>
       </InputSC>
-    </ContainerSC>
+    </KeyboardContainerSC>
   );
 }
 
-const ContainerSC = styled.div`
+const KeyboardContainerSC = styled.div`
   width: 100%;
   padding: 30px 225px 0px 225px;
   display: flex;
@@ -110,6 +93,7 @@ const InputSC = styled.div`
   input {
     width: 353px;
     height: 40px;
+    padding-left: 10px;
 
     background: #e1ecf4;
     border: 1px solid #cccccc;
@@ -142,7 +126,7 @@ const InputSC = styled.div`
   }
 `;
 
-const LettersbuttonSC = styled.div`
+const LettersButtonSC = styled.div`
   width: 100%;
   height: 91px;
   gap: 30px;
